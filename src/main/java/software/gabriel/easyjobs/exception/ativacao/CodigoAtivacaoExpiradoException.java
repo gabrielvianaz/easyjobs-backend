@@ -11,7 +11,7 @@ package software.gabriel.easyjobs.exception.ativacao;
 public class CodigoAtivacaoExpiradoException extends RuntimeException {
     
     public CodigoAtivacaoExpiradoException() {
-        super("Código de ativação expirado. Geramos um novo código!");
+        super("Código de ativação expirado. Um novo código foi enviado no seu e-mail!");
     }
     
 }
