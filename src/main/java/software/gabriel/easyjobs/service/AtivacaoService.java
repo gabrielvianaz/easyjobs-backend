@@ -14,6 +14,8 @@ import software.gabriel.easyjobs.entity.Usuario;
 import software.gabriel.easyjobs.exception.ativacao.CodigoAtivacaoExpiradoException;
 import software.gabriel.easyjobs.exception.ativacao.CodigoAtivacaoIncorretoException;
 import software.gabriel.easyjobs.repository.AtivacaoRepository;
+import software.gabriel.easyjobs.service.mail.AtivacaoMail;
+import software.gabriel.easyjobs.service.mail.MailService;
 
 /**
  *
@@ -25,8 +27,13 @@ public class AtivacaoService {
     @Autowired
     AtivacaoRepository ativacaoRepository;
 
+    @Autowired
+    MailService mailService;
+
     public void cadastrar(Usuario usuario) {
-        ativacaoRepository.save(gerarCodigo(new Ativacao(usuario)));
+        Ativacao ativacao = gerarCodigo(new Ativacao(usuario));
+        ativacaoRepository.save(ativacao);
+        enviarEmail(ativacao);
     }
 
     public void ativar(Usuario usuario, String codigo) {
@@ -35,7 +42,7 @@ public class AtivacaoService {
             ativacaoRepository.delete(ativacao);
             cadastrar(usuario);
             throw new CodigoAtivacaoExpiradoException();
-        } 
+        }
         if (codigo.equals(ativacao.getCodigo())) {
             ativacaoRepository.delete(ativacao);
         } else {
@@ -55,6 +62,10 @@ public class AtivacaoService {
         ativacao.setExpiracao(LocalDateTime.now().plusDays(1));
 
         return ativacao;
+    }
+
+    private void enviarEmail(Ativacao ativacao) {
+        mailService.enviar(ativacao.getUsuario().getEmail(), "Código de Ativação  - EasyJobs", new AtivacaoMail(ativacao).getHtml());
     }
 
 }
