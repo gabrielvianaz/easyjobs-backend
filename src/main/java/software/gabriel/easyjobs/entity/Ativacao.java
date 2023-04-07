@@ -8,10 +8,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
-import java.security.SecureRandom;
-import java.time.LocalDateTime;
 import java.util.Objects;
-import java.util.Random;
 import software.gabriel.easyjobs.model.AtivacaoModel;
 
 /**
@@ -35,8 +32,6 @@ public class Ativacao
 
     public Ativacao(Usuario usuario) {
         this.usuario = usuario;
-        this.codigo = gerarCodigo();
-        this.expiracao = LocalDateTime.now().plusDays(1);
     }
 
     public Ativacao() {
@@ -89,17 +84,6 @@ public class Ativacao
         }
         final Ativacao other = (Ativacao) obj;
         return Objects.equals(this.usuario, other.usuario);
-    }
-
-    private String gerarCodigo() {
-        Random secureRandom = new SecureRandom();
-        StringBuilder sb = new StringBuilder();
-
-        for (int i = 0; i < 6; i++) {
-            sb.append(secureRandom.nextInt(9));
-        }
-
-        return sb.toString();
     }
 
 }

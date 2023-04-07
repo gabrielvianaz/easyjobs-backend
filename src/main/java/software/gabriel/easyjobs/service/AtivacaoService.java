@@ -4,6 +4,9 @@
  */
 package software.gabriel.easyjobs.service;
 
+import java.security.SecureRandom;
+import java.time.LocalDateTime;
+import java.util.Random;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import software.gabriel.easyjobs.entity.Ativacao;
@@ -17,12 +20,12 @@ import software.gabriel.easyjobs.repository.AtivacaoRepository;
  */
 @Service
 public class AtivacaoService {
-
+    
     @Autowired
     AtivacaoRepository ativacaoRepository;
-
+    
     public void cadastrar(Usuario usuario) {
-        ativacaoRepository.save(new Ativacao(usuario));
+        ativacaoRepository.save(gerarCodigo(new Ativacao(usuario)));
     }
     
     public void ativar(Usuario usuario, String codigo) {
@@ -33,5 +36,19 @@ public class AtivacaoService {
             throw new CodigoAtivacaoIncorretoException();
         }
     }
-
+    
+    private Ativacao gerarCodigo(Ativacao ativacao) {
+        Random secureRandom = new SecureRandom();
+        StringBuilder sb = new StringBuilder();
+        
+        for (int i = 0; i < 6; i++) {
+            sb.append(secureRandom.nextInt(9));
+        }
+        
+        ativacao.setCodigo(sb.toString());
+        ativacao.setExpiracao(LocalDateTime.now().plusDays(1));
+        
+        return ativacao;
+    }
+    
 }
