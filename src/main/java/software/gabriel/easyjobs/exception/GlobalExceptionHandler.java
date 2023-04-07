@@ -38,7 +38,6 @@ public class GlobalExceptionHandler {
         String mensagem = e.getMessage();
         HttpStatus status = HttpStatus.CONFLICT;
         BaseError err = new BaseError(Instant.now(), status.value(), mensagem, request.getRequestURI());
-
         return ResponseEntity.status(status).body(err);
     }
 
@@ -47,7 +46,6 @@ public class GlobalExceptionHandler {
         String mensagem = e.getMessage();
         HttpStatus status = HttpStatus.NOT_FOUND;
         BaseError err = new BaseError(Instant.now(), status.value(), mensagem, request.getRequestURI());
-
         return ResponseEntity.status(status).body(err);
     }
 
@@ -56,7 +54,6 @@ public class GlobalExceptionHandler {
         String mensagem = e.getMessage();
         HttpStatus status = HttpStatus.BAD_REQUEST;
         BaseError err = new BaseError(Instant.now(), status.value(), mensagem, request.getRequestURI());
-
         return ResponseEntity.status(status).body(err);
     }
 
@@ -65,7 +62,6 @@ public class GlobalExceptionHandler {
         String mensagem = e.getMessage();
         HttpStatus status = HttpStatus.BAD_REQUEST;
         BaseError err = new BaseError(Instant.now(), status.value(), mensagem, request.getRequestURI());
-
         return ResponseEntity.status(status).body(err);
     }
 
@@ -74,7 +70,6 @@ public class GlobalExceptionHandler {
         String mensagem = e.getMessage();
         HttpStatus status = HttpStatus.UNAUTHORIZED;
         BaseError err = new BaseError(Instant.now(), status.value(), mensagem, request.getRequestURI());
-
         return ResponseEntity.status(status).body(err);
     }
 
@@ -83,7 +78,6 @@ public class GlobalExceptionHandler {
         String mensagem = e.getMessage();
         HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
         BaseError err = new BaseError(Instant.now(), status.value(), mensagem, request.getRequestURI());
-
         return ResponseEntity.status(status).body(err);
     }
 
