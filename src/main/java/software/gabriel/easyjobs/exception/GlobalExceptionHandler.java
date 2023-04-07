@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import software.gabriel.easyjobs.exception.ativacao.CodigoAtivacaoExpiradoException;
 import software.gabriel.easyjobs.exception.ativacao.CodigoAtivacaoIncorretoException;
 import software.gabriel.easyjobs.exception.usuario.ContaJaAtivadaException;
 import software.gabriel.easyjobs.exception.usuario.EmailJaCadastradoException;
@@ -60,6 +61,15 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(CodigoAtivacaoIncorretoException.class)
     public ResponseEntity<BaseError> codigoAtivacaoIncorretoException(CodigoAtivacaoIncorretoException e, HttpServletRequest request) {
+        String mensagem = e.getMessage();
+        HttpStatus status = HttpStatus.BAD_REQUEST;
+        BaseError err = new BaseError(Instant.now(), status.value(), mensagem, request.getRequestURI());
+
+        return ResponseEntity.status(status).body(err);
+    }
+
+    @ExceptionHandler(CodigoAtivacaoExpiradoException.class)
+    public ResponseEntity<BaseError> codigoAtivacaoExpiradoException(CodigoAtivacaoExpiradoException e, HttpServletRequest request) {
         String mensagem = e.getMessage();
         HttpStatus status = HttpStatus.BAD_REQUEST;
         BaseError err = new BaseError(Instant.now(), status.value(), mensagem, request.getRequestURI());
