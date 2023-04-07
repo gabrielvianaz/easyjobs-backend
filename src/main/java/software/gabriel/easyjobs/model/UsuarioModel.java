@@ -16,5 +16,7 @@ public interface UsuarioModel
     String getSenha();
     
     Boolean getAtivo();
+    
+    Boolean getVinculado();
 
 }

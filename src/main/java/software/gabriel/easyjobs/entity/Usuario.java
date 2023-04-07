@@ -34,6 +34,9 @@ public class Usuario
     @Column(nullable = false)
     private Boolean ativo;
 
+    @Column(nullable = false)
+    private Boolean vinculado;
+
     @Override
     public String getEmail() {
         return email;
@@ -59,6 +62,15 @@ public class Usuario
 
     public void setAtivo(Boolean ativo) {
         this.ativo = ativo;
+    }
+
+    @Override
+    public Boolean getVinculado() {
+        return vinculado;
+    }
+
+    public void setVinculado(Boolean vinculado) {
+        this.vinculado = vinculado;
     }
 
     @Override

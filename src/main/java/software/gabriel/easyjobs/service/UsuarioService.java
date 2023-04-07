@@ -40,6 +40,7 @@ public class UsuarioService {
             Usuario usuario = usuarioMapper.toEntity(usuarioDTO);
             usuario.setSenha(bCryptPasswordEncoder.encode(usuario.getSenha()));
             usuario.setAtivo(false);
+            usuario.setVinculado(false);
             usuarioRepository.save(usuario);
             ativacaoService.cadastrar(usuario);
         } else {
@@ -49,7 +50,7 @@ public class UsuarioService {
 
     public void ativar(AtivacaoDTO ativacaoDTO) {
         Usuario usuario = usuarioRepository.findByEmail(ativacaoDTO.getEmail());
-
+        
         if (usuario != null) {
             if (usuario.getAtivo() == false) {
                 ativacaoService.ativar(usuario, ativacaoDTO.getCodigo());
