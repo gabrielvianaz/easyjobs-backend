@@ -39,8 +39,7 @@ public class AtivacaoService {
     public void ativar(Usuario usuario, String codigo) {
         Ativacao ativacao = ativacaoRepository.findByUsuario(usuario);
         if (LocalDateTime.now().isAfter(ativacao.getExpiracao())) {
-            ativacaoRepository.delete(ativacao);
-            cadastrar(usuario);
+            renovarCodigo(ativacao, usuario);
             throw new CodigoAtivacaoExpiradoException();
         }
         if (codigo.equals(ativacao.getCodigo())) {
@@ -62,6 +61,11 @@ public class AtivacaoService {
         ativacao.setExpiracao(LocalDateTime.now().plusDays(1));
 
         return ativacao;
+    }
+    
+    private void renovarCodigo(Ativacao ativacao, Usuario usuario) {
+        ativacaoRepository.delete(ativacao);
+        cadastrar(usuario);
     }
 
     private void enviarEmail(Ativacao ativacao) {
