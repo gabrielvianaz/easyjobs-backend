@@ -34,7 +34,7 @@ public class UsuarioController {
     @PostMapping("/ativacao")
     public ResponseEntity<Void> ativar(@Valid @RequestBody AtivacaoDTO ativacaoDTO) {
         usuarioService.ativar(ativacaoDTO);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
 }

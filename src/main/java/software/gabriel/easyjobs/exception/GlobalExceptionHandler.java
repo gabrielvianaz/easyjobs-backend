@@ -72,7 +72,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(CodigoAtivacaoExpiradoException.class)
     public ResponseEntity<BaseError> codigoAtivacaoExpiradoException(CodigoAtivacaoExpiradoException e, HttpServletRequest request) {
         String mensagem = e.getMessage();
-        HttpStatus status = HttpStatus.BAD_REQUEST;
+        HttpStatus status = HttpStatus.UNAUTHORIZED;
         BaseError err = new BaseError(Instant.now(), status.value(), mensagem, request.getRequestURI());
 
         return ResponseEntity.status(status).body(err);
