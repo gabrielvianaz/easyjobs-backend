@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import software.gabriel.easyjobs.exception.ativacao.CodigoAtivacaoExpiradoException;
 import software.gabriel.easyjobs.exception.ativacao.CodigoAtivacaoIncorretoException;
+import software.gabriel.easyjobs.exception.mail.ErroEnvioEmailException;
 import software.gabriel.easyjobs.exception.usuario.ContaJaAtivadaException;
 import software.gabriel.easyjobs.exception.usuario.EmailJaCadastradoException;
 import software.gabriel.easyjobs.exception.usuario.EmailNaoCadastradoException;
@@ -72,6 +73,15 @@ public class GlobalExceptionHandler {
     public ResponseEntity<BaseError> codigoAtivacaoExpiradoException(CodigoAtivacaoExpiradoException e, HttpServletRequest request) {
         String mensagem = e.getMessage();
         HttpStatus status = HttpStatus.BAD_REQUEST;
+        BaseError err = new BaseError(Instant.now(), status.value(), mensagem, request.getRequestURI());
+
+        return ResponseEntity.status(status).body(err);
+    }
+
+    @ExceptionHandler(ErroEnvioEmailException.class)
+    public ResponseEntity<BaseError> erroEnvioEmailException(ErroEnvioEmailException e, HttpServletRequest request) {
+        String mensagem = e.getMessage();
+        HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
         BaseError err = new BaseError(Instant.now(), status.value(), mensagem, request.getRequestURI());
 
         return ResponseEntity.status(status).body(err);
