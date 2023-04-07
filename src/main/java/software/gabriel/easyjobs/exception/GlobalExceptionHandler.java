@@ -11,6 +11,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import software.gabriel.easyjobs.exception.ativacao.CodigoAtivacaoIncorretoException;
+import software.gabriel.easyjobs.exception.usuario.ContaJaAtivadaException;
+import software.gabriel.easyjobs.exception.usuario.EmailJaCadastradoException;
+import software.gabriel.easyjobs.exception.usuario.EmailNaoCadastradoException;
 
 /**
  *
@@ -24,6 +28,42 @@ public class GlobalExceptionHandler {
         String mensagem = e.getFieldError().getDefaultMessage();
         HttpStatus status = HttpStatus.BAD_REQUEST;
         BaseError err = new BaseError(Instant.now(), status.value(), mensagem, request.getRequestURI());
+        return ResponseEntity.status(status).body(err);
+    }    
+
+    @ExceptionHandler(EmailJaCadastradoException.class)
+    public ResponseEntity<BaseError> emailJaCadastradoException(EmailJaCadastradoException e, HttpServletRequest request) {
+        String mensagem = e.getMessage();
+        HttpStatus status = HttpStatus.CONFLICT;
+        BaseError err = new BaseError(Instant.now(), status.value(), mensagem, request.getRequestURI());
+
+        return ResponseEntity.status(status).body(err);
+    }
+
+    @ExceptionHandler(EmailNaoCadastradoException.class)
+    public ResponseEntity<BaseError> emailNaoCadastradoException(EmailNaoCadastradoException e, HttpServletRequest request) {
+        String mensagem = e.getMessage();
+        HttpStatus status = HttpStatus.NOT_FOUND;
+        BaseError err = new BaseError(Instant.now(), status.value(), mensagem, request.getRequestURI());
+
+        return ResponseEntity.status(status).body(err);
+    }
+
+    @ExceptionHandler(ContaJaAtivadaException.class)
+    public ResponseEntity<BaseError> contaJaAtivadaException(ContaJaAtivadaException e, HttpServletRequest request) {
+        String mensagem = e.getMessage();
+        HttpStatus status = HttpStatus.BAD_REQUEST;
+        BaseError err = new BaseError(Instant.now(), status.value(), mensagem, request.getRequestURI());
+
+        return ResponseEntity.status(status).body(err);
+    }
+
+    @ExceptionHandler(CodigoAtivacaoIncorretoException.class)
+    public ResponseEntity<BaseError> codigoAtivacaoIncorretoException(CodigoAtivacaoIncorretoException e, HttpServletRequest request) {
+        String mensagem = e.getMessage();
+        HttpStatus status = HttpStatus.BAD_REQUEST;
+        BaseError err = new BaseError(Instant.now(), status.value(), mensagem, request.getRequestURI());
+
         return ResponseEntity.status(status).body(err);
     }
 
