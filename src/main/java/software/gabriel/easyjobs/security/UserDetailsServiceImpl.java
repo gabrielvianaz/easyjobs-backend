@@ -16,7 +16,7 @@ import software.gabriel.easyjobs.repository.UsuarioRepository;
  * @author gabriel
  */
 @Service
-public class AuthService
+public class UserDetailsServiceImpl
         implements UserDetailsService {
     
     @Autowired
