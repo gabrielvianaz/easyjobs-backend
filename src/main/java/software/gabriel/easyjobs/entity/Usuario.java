@@ -9,7 +9,10 @@ import jakarta.persistence.Entity;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+import java.util.Collection;
 import java.util.Objects;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 import software.gabriel.easyjobs.model.UsuarioModel;
 
 /**
@@ -19,7 +22,7 @@ import software.gabriel.easyjobs.model.UsuarioModel;
 @Entity
 public class Usuario
         extends BaseEntity
-        implements UsuarioModel {
+        implements UsuarioModel, UserDetails {
 
     @NotBlank(message = "O campo 'email' deve ser preenchido!")
     @Email(message = "O e-mail informado é inválido!")
@@ -71,6 +74,41 @@ public class Usuario
 
     public void setVinculado(Boolean vinculado) {
         this.vinculado = vinculado;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return null;
+    }
+
+    @Override
+    public String getPassword() {
+        return getSenha();
+    }
+
+    @Override
+    public String getUsername() {
+        return getEmail();
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return getAtivo();
     }
 
     @Override
