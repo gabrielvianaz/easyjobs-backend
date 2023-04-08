@@ -18,6 +18,8 @@ public interface AtivacaoModel
     
     String getCodigo();
     
+    LocalDateTime getGeracao();
+    
     LocalDateTime getExpiracao();
     
 }

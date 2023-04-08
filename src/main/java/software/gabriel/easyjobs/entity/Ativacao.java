@@ -29,6 +29,9 @@ public class Ativacao
     private String codigo;
 
     @Column(nullable = false)
+    private LocalDateTime geracao;
+
+    @Column(nullable = false)
     private LocalDateTime expiracao;
 
     public Ativacao(Usuario usuario) {
@@ -54,6 +57,15 @@ public class Ativacao
 
     public void setCodigo(String codigo) {
         this.codigo = codigo;
+    }
+
+    @Override
+    public LocalDateTime getGeracao() {
+        return geracao;
+    }
+
+    public void setGeracao(LocalDateTime geracao) {
+        this.geracao = geracao;
     }
 
     @Override
