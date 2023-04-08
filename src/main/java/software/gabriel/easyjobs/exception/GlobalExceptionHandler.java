@@ -11,8 +11,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import software.gabriel.easyjobs.exception.ativacao.AtivacaoInexistenteException;
 import software.gabriel.easyjobs.exception.ativacao.CodigoAtivacaoExpiradoException;
 import software.gabriel.easyjobs.exception.ativacao.CodigoAtivacaoIncorretoException;
+import software.gabriel.easyjobs.exception.ativacao.RenovacaoAntecipadaCodigoAtivacaoException;
 import software.gabriel.easyjobs.exception.mail.ErroEnvioEmailException;
 import software.gabriel.easyjobs.exception.security.ContaNaoAtivadaException;
 import software.gabriel.easyjobs.exception.security.CredenciaisInvalidasException;
@@ -71,6 +73,22 @@ public class GlobalExceptionHandler {
     public ResponseEntity<BaseError> codigoAtivacaoExpiradoException(CodigoAtivacaoExpiradoException e, HttpServletRequest request) {
         String mensagem = e.getMessage();
         HttpStatus status = HttpStatus.UNAUTHORIZED;
+        BaseError err = new BaseError(Instant.now(), status.value(), mensagem, request.getRequestURI());
+        return ResponseEntity.status(status).body(err);
+    }
+
+    @ExceptionHandler(AtivacaoInexistenteException.class)
+    public ResponseEntity<BaseError> ativacaoInexistenteException(AtivacaoInexistenteException e, HttpServletRequest request) {
+        String mensagem = e.getMessage();
+        HttpStatus status = HttpStatus.NOT_FOUND;
+        BaseError err = new BaseError(Instant.now(), status.value(), mensagem, request.getRequestURI());
+        return ResponseEntity.status(status).body(err);
+    }
+
+    @ExceptionHandler(RenovacaoAntecipadaCodigoAtivacaoException.class)
+    public ResponseEntity<BaseError> renovacaoAntecipadaCodigoAtivacaoException(RenovacaoAntecipadaCodigoAtivacaoException e, HttpServletRequest request) {
+        String mensagem = e.getMessage();
+        HttpStatus status = HttpStatus.CONFLICT;
         BaseError err = new BaseError(Instant.now(), status.value(), mensagem, request.getRequestURI());
         return ResponseEntity.status(status).body(err);
     }
