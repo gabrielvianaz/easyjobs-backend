@@ -8,6 +8,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
+import java.time.LocalDateTime;
 import java.util.Objects;
 import software.gabriel.easyjobs.model.AtivacaoModel;
 
@@ -28,7 +29,7 @@ public class Ativacao
     private String codigo;
 
     @Column(nullable = false)
-    private java.time.LocalDateTime expiracao;
+    private LocalDateTime expiracao;
 
     public Ativacao(Usuario usuario) {
         this.usuario = usuario;
