@@ -7,10 +7,8 @@ package software.gabriel.easyjobs.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import software.gabriel.easyjobs.dto.AtivacaoDTO;
 import software.gabriel.easyjobs.dto.UsuarioDTO;
 import software.gabriel.easyjobs.entity.Usuario;
-import software.gabriel.easyjobs.exception.usuario.ContaJaAtivadaException;
 import software.gabriel.easyjobs.exception.usuario.EmailJaCadastradoException;
 import software.gabriel.easyjobs.exception.usuario.EmailNaoCadastradoException;
 import software.gabriel.easyjobs.mapper.UsuarioMapper;
@@ -48,20 +46,17 @@ public class UsuarioService {
         }
     }
 
-    public void ativar(AtivacaoDTO ativacaoDTO) {
-        Usuario usuario = usuarioRepository.findByEmail(ativacaoDTO.getEmail());
-        
-        if (usuario != null) {
-            if (usuario.getAtivo() == false) {
-                ativacaoService.ativar(usuario, ativacaoDTO.getCodigo());
-                usuario.setAtivo(true);
-                usuarioRepository.save(usuario);
-            } else {
-                throw new ContaJaAtivadaException();
-            }
-        } else {
+    public void ativar(Usuario usuario) {
+        usuario.setAtivo(true);
+        usuarioRepository.save(usuario);
+    }
+    
+    public Usuario findByEmail(String email) {
+        Usuario usuario = usuarioRepository.findByEmail(email);
+        if (usuario == null) {
             throw new EmailNaoCadastradoException();
         }
+        return usuario;
     }
 
 }
