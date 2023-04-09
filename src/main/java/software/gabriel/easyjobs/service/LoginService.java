@@ -37,7 +37,6 @@ public class LoginService {
                 = new UsernamePasswordAuthenticationToken(usuarioDTO.getEmail(), usuarioDTO.getSenha());
         try {
             Authentication authentication = authenticationManager.authenticate(usernamePasswordAuthenticationToken);
-            System.out.print(authentication);
             Usuario usuario = (Usuario) authentication.getPrincipal();
             return tokenService.gerar(usuario);
         } catch (DisabledException e) {
@@ -45,7 +44,6 @@ public class LoginService {
         } catch (BadCredentialsException e) {
             throw new SenhaIncorretaException();
         } catch (AuthenticationException e) {
-            System.out.println(e.getClass());
             throw new EmailNaoCadastradoException();
         }
 
