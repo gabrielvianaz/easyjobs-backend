@@ -8,10 +8,10 @@ package software.gabriel.easyjobs.exception.security;
  *
  * @author gabriel
  */
-public class CredenciaisInvalidasException extends RuntimeException {
+public class SenhaIncorretaException extends RuntimeException {
 
-    public CredenciaisInvalidasException() {
-        super("As credenciais informadas são inválidas!");
+    public SenhaIncorretaException() {
+        super("As senha informada está incorreta!");
     }
 
 }

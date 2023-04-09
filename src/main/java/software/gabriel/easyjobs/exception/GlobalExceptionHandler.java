@@ -17,7 +17,7 @@ import software.gabriel.easyjobs.exception.ativacao.CodigoAtivacaoIncorretoExcep
 import software.gabriel.easyjobs.exception.ativacao.RenovacaoAntecipadaCodigoAtivacaoException;
 import software.gabriel.easyjobs.exception.mail.ErroEnvioEmailException;
 import software.gabriel.easyjobs.exception.security.ContaNaoAtivadaException;
-import software.gabriel.easyjobs.exception.security.CredenciaisInvalidasException;
+import software.gabriel.easyjobs.exception.security.SenhaIncorretaException;
 import software.gabriel.easyjobs.exception.usuario.ContaJaAtivadaException;
 import software.gabriel.easyjobs.exception.usuario.EmailJaCadastradoException;
 import software.gabriel.easyjobs.exception.usuario.EmailNaoCadastradoException;
@@ -101,8 +101,8 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(status).body(err);
     }
 
-    @ExceptionHandler(CredenciaisInvalidasException.class)
-    public ResponseEntity<BaseError> credenciaisInvalidasException(CredenciaisInvalidasException e, HttpServletRequest request) {
+    @ExceptionHandler(SenhaIncorretaException.class)
+    public ResponseEntity<BaseError> senhaIncorretaException(SenhaIncorretaException e, HttpServletRequest request) {
         String mensagem = e.getMessage();
         HttpStatus status = HttpStatus.UNAUTHORIZED;
         BaseError err = new BaseError(Instant.now(), status.value(), mensagem, request.getRequestURI());
