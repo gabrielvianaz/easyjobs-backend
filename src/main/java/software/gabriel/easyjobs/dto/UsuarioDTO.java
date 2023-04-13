@@ -4,6 +4,8 @@
  */
 package software.gabriel.easyjobs.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -14,6 +16,7 @@ import software.gabriel.easyjobs.enums.TipoVinculoUsuario;
  *
  * @author gabriel
  */
+@JsonInclude(Include.NON_NULL)
 public class UsuarioDTO
         extends BaseDTO<Usuario> {
 

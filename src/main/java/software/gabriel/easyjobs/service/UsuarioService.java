@@ -15,6 +15,7 @@ import software.gabriel.easyjobs.exception.usuario.EmailNaoCadastradoException;
 import software.gabriel.easyjobs.exception.usuario.UsuarioJaVinculadoException;
 import software.gabriel.easyjobs.mapper.UsuarioMapper;
 import software.gabriel.easyjobs.repository.UsuarioRepository;
+import software.gabriel.easyjobs.security.SecurityUtils;
 
 /**
  *
@@ -57,6 +58,11 @@ public class UsuarioService {
         usuario.setVinculado(true);
         usuario.setTipoVinculo(tipoVinculo);
         usuarioRepository.save(usuario);
+    }
+
+    public UsuarioDTO recuperar() {
+        Usuario usuario = SecurityUtils.getUsuarioAutenticado();
+        return usuarioMapper.toDTO(usuario);
     }
 
     public Usuario findByEmail(String email) {
