@@ -9,8 +9,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import software.gabriel.easyjobs.dto.UsuarioDTO;
 import software.gabriel.easyjobs.entity.Usuario;
+import software.gabriel.easyjobs.enums.TipoVinculoUsuario;
 import software.gabriel.easyjobs.exception.usuario.EmailJaCadastradoException;
 import software.gabriel.easyjobs.exception.usuario.EmailNaoCadastradoException;
+import software.gabriel.easyjobs.exception.usuario.UsuarioJaVinculadoException;
 import software.gabriel.easyjobs.mapper.UsuarioMapper;
 import software.gabriel.easyjobs.repository.UsuarioRepository;
 
@@ -50,13 +52,25 @@ public class UsuarioService {
         usuario.setAtivo(true);
         usuarioRepository.save(usuario);
     }
-    
+
+    public void vincular(Usuario usuario, TipoVinculoUsuario tipoVinculo) {
+        usuario.setVinculado(true);
+        usuario.setTipoVinculo(tipoVinculo);
+        usuarioRepository.save(usuario);
+    }
+
     public Usuario findByEmail(String email) {
         Usuario usuario = usuarioRepository.findByEmail(email);
         if (usuario == null) {
             throw new EmailNaoCadastradoException();
         }
         return usuario;
+    }
+
+    public void validarVinculoUsuario(Usuario usuario) {
+        if (usuario.getVinculado() == true) {
+            throw new UsuarioJaVinculadoException();
+        }
     }
 
 }

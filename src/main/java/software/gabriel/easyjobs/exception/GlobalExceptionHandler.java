@@ -21,6 +21,7 @@ import software.gabriel.easyjobs.exception.security.SenhaIncorretaException;
 import software.gabriel.easyjobs.exception.usuario.ContaJaAtivadaException;
 import software.gabriel.easyjobs.exception.usuario.EmailJaCadastradoException;
 import software.gabriel.easyjobs.exception.usuario.EmailNaoCadastradoException;
+import software.gabriel.easyjobs.exception.usuario.UsuarioJaVinculadoException;
 
 /**
  *
@@ -113,6 +114,14 @@ public class GlobalExceptionHandler {
     public ResponseEntity<BaseError> contaNaoAtivadaException(ContaNaoAtivadaException e, HttpServletRequest request) {
         String mensagem = e.getMessage();
         HttpStatus status = HttpStatus.FORBIDDEN;
+        BaseError err = new BaseError(Instant.now(), status.value(), mensagem, request.getRequestURI());
+        return ResponseEntity.status(status).body(err);
+    }
+
+    @ExceptionHandler(UsuarioJaVinculadoException.class)
+    public ResponseEntity<BaseError> usuarioJaVinculadoException(UsuarioJaVinculadoException e, HttpServletRequest request) {
+        String mensagem = e.getMessage();
+        HttpStatus status = HttpStatus.CONFLICT;
         BaseError err = new BaseError(Instant.now(), status.value(), mensagem, request.getRequestURI());
         return ResponseEntity.status(status).body(err);
     }
