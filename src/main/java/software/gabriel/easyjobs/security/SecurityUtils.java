@@ -6,6 +6,8 @@ package software.gabriel.easyjobs.security;
 
 import java.util.Arrays;
 import java.util.List;
+import org.springframework.security.core.context.SecurityContextHolder;
+import software.gabriel.easyjobs.entity.Usuario;
 
 /**
  *
@@ -19,6 +21,10 @@ public class SecurityUtils {
 
     public static List<String> getAllowedOrigins() {
         return Arrays.asList("http://localhost:5173");
+    }
+
+    public static Usuario getUsuarioAutenticado() {
+        return (Usuario) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     }
 
     public static Integer SEGUNDOS_EXPIRACAO_TOKEN_JWT = 86400;
