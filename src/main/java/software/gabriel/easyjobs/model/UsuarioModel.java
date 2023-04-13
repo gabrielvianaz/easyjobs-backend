@@ -4,6 +4,8 @@
  */
 package software.gabriel.easyjobs.model;
 
+import software.gabriel.easyjobs.enums.TipoVinculoUsuario;
+
 /**
  *
  * @author gabriel
@@ -18,5 +20,7 @@ public interface UsuarioModel
     Boolean getAtivo();
     
     Boolean getVinculado();
+    
+    TipoVinculoUsuario getTipoVinculo();
 
 }

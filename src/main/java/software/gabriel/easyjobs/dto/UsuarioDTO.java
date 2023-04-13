@@ -8,6 +8,7 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import software.gabriel.easyjobs.entity.Usuario;
+import software.gabriel.easyjobs.enums.TipoVinculoUsuario;
 
 /**
  *
@@ -24,6 +25,10 @@ public class UsuarioDTO
     @Size(min = 8, message = "A senha deve possuir no mínimo 8 caracteres!")
     private String senha;
 
+    private Boolean vinculado;
+
+    private TipoVinculoUsuario tipoVinculo;
+
     public String getEmail() {
         return email;
     }
@@ -38,6 +43,22 @@ public class UsuarioDTO
 
     public void setSenha(String senha) {
         this.senha = senha;
+    }
+
+    public Boolean getVinculado() {
+        return vinculado;
+    }
+
+    public void setVinculado(Boolean vinculado) {
+        this.vinculado = vinculado;
+    }
+
+    public TipoVinculoUsuario getTipoVinculo() {
+        return tipoVinculo;
+    }
+
+    public void setTipoVinculo(TipoVinculoUsuario tipoVinculo) {
+        this.tipoVinculo = tipoVinculo;
     }
 
 }

@@ -5,6 +5,7 @@
 package software.gabriel.easyjobs.mapper;
 
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import software.gabriel.easyjobs.dto.UsuarioDTO;
 import software.gabriel.easyjobs.entity.Usuario;
 
@@ -13,6 +14,10 @@ import software.gabriel.easyjobs.entity.Usuario;
  * @author gabriel
  */
 @Mapper(config = BaseMapper.class)
-public interface UsuarioMapper extends BaseMapper<Usuario, UsuarioDTO>{
-    
+public interface UsuarioMapper extends BaseMapper<Usuario, UsuarioDTO> {
+
+    @Override
+    @Mapping(target = "senha", ignore = true)
+    public UsuarioDTO toDTO(Usuario entity);
+
 }
