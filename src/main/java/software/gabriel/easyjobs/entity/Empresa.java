@@ -54,9 +54,7 @@ public class Empresa
 
     private String resumo;
 
-    @NotBlank(message = "O campo 'urlLogo' deve ser preenchido!")
     @URL(message = "O URL informado é inválido!")
-    @Column(nullable = false)
     private String urlLogo;
 
     @OneToOne
