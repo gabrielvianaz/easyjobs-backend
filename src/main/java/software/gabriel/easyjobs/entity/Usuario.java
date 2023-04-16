@@ -40,9 +40,6 @@ public class Usuario
     @Column(nullable = false)
     private Boolean ativo;
 
-    @Column(nullable = false)
-    private Boolean vinculado;
-
     @Enumerated(EnumType.STRING)
     private TipoVinculoUsuario tipoVinculo;
 
@@ -71,15 +68,6 @@ public class Usuario
 
     public void setAtivo(Boolean ativo) {
         this.ativo = ativo;
-    }
-
-    @Override
-    public Boolean getVinculado() {
-        return vinculado;
-    }
-
-    public void setVinculado(Boolean vinculado) {
-        this.vinculado = vinculado;
     }
 
     @Override

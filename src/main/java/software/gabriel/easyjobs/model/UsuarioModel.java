@@ -10,17 +10,15 @@ import software.gabriel.easyjobs.enums.TipoVinculoUsuario;
  *
  * @author gabriel
  */
-public interface UsuarioModel 
+public interface UsuarioModel
         extends BaseModel {
-    
+
     String getEmail();
-    
+
     String getSenha();
-    
+
     Boolean getAtivo();
-    
-    Boolean getVinculado();
-    
+
     TipoVinculoUsuario getTipoVinculo();
 
 }

@@ -41,7 +41,6 @@ public class UsuarioService {
             Usuario usuario = usuarioMapper.toEntity(usuarioDTO);
             usuario.setSenha(bCryptPasswordEncoder.encode(usuario.getSenha()));
             usuario.setAtivo(false);
-            usuario.setVinculado(false);
             usuarioRepository.save(usuario);
             ativacaoService.cadastrar(usuario);
         } else {
@@ -55,7 +54,6 @@ public class UsuarioService {
     }
 
     public void vincular(Usuario usuario, TipoVinculoUsuario tipoVinculo) {
-        usuario.setVinculado(true);
         usuario.setTipoVinculo(tipoVinculo);
         usuarioRepository.save(usuario);
     }
@@ -74,7 +72,7 @@ public class UsuarioService {
     }
 
     public void validarVinculoUsuario(Usuario usuario) {
-        if (usuario.getVinculado() == true) {
+        if (usuario.getTipoVinculo() != null) {
             throw new UsuarioJaVinculadoException();
         }
     }

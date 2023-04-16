@@ -4,8 +4,7 @@
  */
 package software.gabriel.easyjobs.dto;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -16,7 +15,6 @@ import software.gabriel.easyjobs.enums.TipoVinculoUsuario;
  *
  * @author gabriel
  */
-@JsonInclude(Include.NON_NULL)
 public class UsuarioDTO
         extends BaseDTO<Usuario> {
 
@@ -24,11 +22,10 @@ public class UsuarioDTO
     @Email(message = "O e-mail informado é inválido!")
     private String email;
 
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @NotBlank(message = "O campo 'senha' deve ser preenchido!")
     @Size(min = 8, message = "A senha deve possuir no mínimo 8 caracteres!")
     private String senha;
-
-    private Boolean vinculado;
 
     private TipoVinculoUsuario tipoVinculo;
 
@@ -46,14 +43,6 @@ public class UsuarioDTO
 
     public void setSenha(String senha) {
         this.senha = senha;
-    }
-
-    public Boolean getVinculado() {
-        return vinculado;
-    }
-
-    public void setVinculado(Boolean vinculado) {
-        this.vinculado = vinculado;
     }
 
     public TipoVinculoUsuario getTipoVinculo() {
