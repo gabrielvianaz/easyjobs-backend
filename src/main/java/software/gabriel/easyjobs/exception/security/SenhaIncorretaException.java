@@ -11,7 +11,7 @@ package software.gabriel.easyjobs.exception.security;
 public class SenhaIncorretaException extends RuntimeException {
 
     public SenhaIncorretaException() {
-        super("As senha informada está incorreta!");
+        super("A senha informada está incorreta!");
     }
 
 }
