@@ -4,10 +4,12 @@
  */
 package software.gabriel.easyjobs.exception;
 
+import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import jakarta.servlet.http.HttpServletRequest;
 import java.time.Instant;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -36,7 +38,21 @@ public class GlobalExceptionHandler {
         HttpStatus status = HttpStatus.BAD_REQUEST;
         BaseError err = new BaseError(Instant.now(), status.value(), mensagem, request.getRequestURI());
         return ResponseEntity.status(status).body(err);
-    }    
+    }
+
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    public ResponseEntity<BaseError> httpMessageNotReadableException(HttpMessageNotReadableException e, HttpServletRequest request) {
+        if (e.getCause() instanceof InvalidFormatException ex && !ex.getPath().isEmpty()) {
+            String mensagem = String.format("O campo '%s' possui um valor inválido!", ex.getPath().get(0).getFieldName());
+            HttpStatus status = HttpStatus.BAD_REQUEST;
+            BaseError err = new BaseError(Instant.now(), status.value(), mensagem, request.getRequestURI());
+            return ResponseEntity.status(status).body(err);
+        }
+        String mensagem = e.getMessage();
+        HttpStatus status = HttpStatus.BAD_REQUEST;
+        BaseError err = new BaseError(Instant.now(), status.value(), mensagem, request.getRequestURI());
+        return ResponseEntity.status(status).body(err);
+    }
 
     @ExceptionHandler(EmailJaCadastradoException.class)
     public ResponseEntity<BaseError> emailJaCadastradoException(EmailJaCadastradoException e, HttpServletRequest request) {
