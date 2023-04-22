@@ -14,6 +14,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import java.time.LocalDate;
+import java.util.Objects;
 import org.hibernate.validator.constraints.br.CPF;
 import software.gabriel.easyjobs.enums.GeneroCandidato;
 import software.gabriel.easyjobs.model.CandidatoModel;
@@ -36,7 +37,7 @@ public class Candidato
     @CPF(message = "O CPF informado é inválido!")
     @Column(nullable = false, unique = true, length = 11)
     private String cpf;
-    
+
     @NotNull(message = "O campo 'dataNascimento' deve ser preenchido!")
     @Column(nullable = false)
     private LocalDate dataNascimento;
@@ -121,6 +122,28 @@ public class Candidato
 
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 79 * hash + Objects.hashCode(this.cpf);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Candidato other = (Candidato) obj;
+        return Objects.equals(this.cpf, other.cpf);
     }
 
 }

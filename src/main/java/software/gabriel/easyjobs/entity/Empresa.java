@@ -12,6 +12,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import java.time.LocalDate;
+import java.util.Objects;
 import org.hibernate.validator.constraints.URL;
 import org.hibernate.validator.constraints.br.CNPJ;
 import software.gabriel.easyjobs.model.EmpresaModel;
@@ -141,6 +142,28 @@ public class Empresa
 
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 37 * hash + Objects.hashCode(this.cnpj);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Empresa other = (Empresa) obj;
+        return Objects.equals(this.cnpj, other.cnpj);
     }
 
 }
