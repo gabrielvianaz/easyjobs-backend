@@ -38,9 +38,6 @@ public class Ativacao
         this.usuario = usuario;
     }
 
-    public Ativacao() {
-    }
-
     @Override
     public Usuario getUsuario() {
         return usuario;
