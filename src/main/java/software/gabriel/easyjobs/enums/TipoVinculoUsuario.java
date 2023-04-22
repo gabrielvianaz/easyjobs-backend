@@ -12,7 +12,7 @@ public enum TipoVinculoUsuario {
     CANDIDATO("Candidato"),
     EMPRESA("Empresa");
 
-    private String nome;
+    private final String nome;
 
     private TipoVinculoUsuario(String nome) {
         this.nome = nome;
@@ -20,10 +20,6 @@ public enum TipoVinculoUsuario {
 
     public String getNome() {
         return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
     }
 
 }
