@@ -8,8 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import software.gabriel.easyjobs.dto.UsuarioDTO;
+import software.gabriel.easyjobs.entity.Role;
 import software.gabriel.easyjobs.entity.Usuario;
-import software.gabriel.easyjobs.enums.TipoVinculoUsuario;
 import software.gabriel.easyjobs.exception.usuario.EmailJaCadastradoException;
 import software.gabriel.easyjobs.exception.usuario.EmailNaoCadastradoException;
 import software.gabriel.easyjobs.exception.usuario.UsuarioJaVinculadoException;
@@ -34,6 +34,9 @@ public class UsuarioService {
     AtivacaoService ativacaoService;
 
     @Autowired
+    RoleService roleService;
+
+    @Autowired
     BCryptPasswordEncoder bCryptPasswordEncoder;
 
     public void cadastrar(UsuarioDTO usuarioDTO) {
@@ -53,8 +56,15 @@ public class UsuarioService {
         usuarioRepository.save(usuario);
     }
 
-    public void vincular(Usuario usuario, TipoVinculoUsuario tipoVinculo) {
-        usuario.setTipoVinculo(tipoVinculo);
+    public void vincularCandidato(Usuario usuario) {
+        Role roleCandidato = roleService.findByName("ROLE_CANDIDATO");
+        usuario.addRole(roleCandidato);
+        usuarioRepository.save(usuario);
+    }
+
+    public void vincularEmpresa(Usuario usuario) {
+        Role roleEmpresa = roleService.findByName("ROLE_EMPRESA");
+        usuario.addRole(roleEmpresa);
         usuarioRepository.save(usuario);
     }
 
@@ -72,7 +82,7 @@ public class UsuarioService {
     }
 
     public void validarVinculoUsuario(Usuario usuario) {
-        if (usuario.getTipoVinculo() != null) {
+        if (!usuario.getRoles().isEmpty()) {
             throw new UsuarioJaVinculadoException();
         }
     }

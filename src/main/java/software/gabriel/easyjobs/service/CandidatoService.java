@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import software.gabriel.easyjobs.dto.CandidatoDTO;
 import software.gabriel.easyjobs.entity.Candidato;
 import software.gabriel.easyjobs.entity.Usuario;
-import software.gabriel.easyjobs.enums.TipoVinculoUsuario;
 import software.gabriel.easyjobs.mapper.CandidatoMapper;
 import software.gabriel.easyjobs.repository.CandidatoRepository;
 import software.gabriel.easyjobs.security.SecurityUtils;
@@ -36,7 +35,7 @@ public class CandidatoService {
         Candidato candidato = candidatoMapper.toEntity(candidatoDTO);
         candidato.setUsuario(usuario);
         candidatoRepository.save(candidato);
-        usuarioService.vincular(usuario, TipoVinculoUsuario.CANDIDATO);
+        usuarioService.vincularCandidato(usuario);
     }
 
 }
