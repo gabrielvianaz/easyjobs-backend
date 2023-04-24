@@ -8,8 +8,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+import java.util.HashSet;
+import java.util.Set;
+import software.gabriel.easyjobs.entity.Role;
 import software.gabriel.easyjobs.entity.Usuario;
-import software.gabriel.easyjobs.enums.TipoVinculoUsuario;
 
 /**
  *
@@ -17,6 +19,8 @@ import software.gabriel.easyjobs.enums.TipoVinculoUsuario;
  */
 public class UsuarioDTO
         extends BaseDTO<Usuario> {
+
+    private Long id;
 
     @NotBlank(message = "O campo 'email' deve ser preenchido!")
     @Email(message = "O e-mail informado é inválido!")
@@ -27,7 +31,17 @@ public class UsuarioDTO
     @Size(min = 8, message = "A senha deve possuir no mínimo 8 caracteres!")
     private String senha;
 
-    private TipoVinculoUsuario tipoVinculo;
+    private Set<Role> roles = new HashSet<>();
+
+    @Override
+    public Long getId() {
+        return id;
+    }
+
+    @Override
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getEmail() {
         return email;
@@ -45,12 +59,12 @@ public class UsuarioDTO
         this.senha = senha;
     }
 
-    public TipoVinculoUsuario getTipoVinculo() {
-        return tipoVinculo;
+    public Set<Role> getRoles() {
+        return roles;
     }
 
-    public void setTipoVinculo(TipoVinculoUsuario tipoVinculo) {
-        this.tipoVinculo = tipoVinculo;
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 
 }

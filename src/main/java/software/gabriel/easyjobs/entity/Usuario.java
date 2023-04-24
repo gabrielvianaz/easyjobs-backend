@@ -4,18 +4,28 @@
  */
 package software.gabriel.easyjobs.entity;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import software.gabriel.easyjobs.enums.TipoVinculoUsuario;
 import software.gabriel.easyjobs.model.UsuarioModel;
 
 /**
@@ -26,6 +36,11 @@ import software.gabriel.easyjobs.model.UsuarioModel;
 public class Usuario
         extends BaseEntity
         implements UsuarioModel, UserDetails {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "usuario_id")
+    private Long id;
 
     @NotBlank(message = "O campo 'email' deve ser preenchido!")
     @Email(message = "O e-mail informado é inválido!")
@@ -40,8 +55,23 @@ public class Usuario
     @Column(nullable = false)
     private Boolean ativo;
 
-    @Enumerated(EnumType.STRING)
-    private TipoVinculoUsuario tipoVinculo;
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "usuario_role",
+            joinColumns = @JoinColumn(name = "usuario_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
+    private Set<Role> roles = new HashSet<>();
+
+    @Override
+    public Long getId() {
+        return id;
+    }
+
+    @Override
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     @Override
     public String getEmail() {
@@ -71,17 +101,23 @@ public class Usuario
     }
 
     @Override
-    public TipoVinculoUsuario getTipoVinculo() {
-        return tipoVinculo;
+    public Set<Role> getRoles() {
+        return roles;
     }
 
-    public void setTipoVinculo(TipoVinculoUsuario tipoVinculo) {
-        this.tipoVinculo = tipoVinculo;
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
+
+    public void addRole(Role role) {
+        getRoles().add(role);
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        List<SimpleGrantedAuthority> authorities = new ArrayList<>();
+        getRoles().forEach(role -> authorities.add(new SimpleGrantedAuthority(role.getName())));
+        return authorities;
     }
 
     @Override

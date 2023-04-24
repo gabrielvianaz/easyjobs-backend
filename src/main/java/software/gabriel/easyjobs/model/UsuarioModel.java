@@ -4,7 +4,8 @@
  */
 package software.gabriel.easyjobs.model;
 
-import software.gabriel.easyjobs.enums.TipoVinculoUsuario;
+import java.util.Set;
+import software.gabriel.easyjobs.entity.Role;
 
 /**
  *
@@ -19,6 +20,6 @@ public interface UsuarioModel
 
     Boolean getAtivo();
 
-    TipoVinculoUsuario getTipoVinculo();
+    Set<Role> getRoles();
 
 }
