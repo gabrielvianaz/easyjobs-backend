@@ -2,22 +2,22 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package software.gabriel.easyjobs.service;
+package software.gabriel.easyjobs.service.security;
 
 import java.security.SecureRandom;
 import java.time.LocalDateTime;
 import java.util.Random;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import software.gabriel.easyjobs.dto.AtivacaoDTO;
-import software.gabriel.easyjobs.dto.UsuarioDTO;
-import software.gabriel.easyjobs.entity.Ativacao;
-import software.gabriel.easyjobs.entity.Usuario;
-import software.gabriel.easyjobs.exception.ativacao.AtivacaoInexistenteException;
-import software.gabriel.easyjobs.exception.ativacao.CodigoAtivacaoExpiradoException;
-import software.gabriel.easyjobs.exception.ativacao.CodigoAtivacaoIncorretoException;
-import software.gabriel.easyjobs.exception.ativacao.RenovacaoAntecipadaCodigoAtivacaoException;
-import software.gabriel.easyjobs.repository.AtivacaoRepository;
+import software.gabriel.easyjobs.dto.security.AtivacaoDTO;
+import software.gabriel.easyjobs.dto.security.UsuarioDTO;
+import software.gabriel.easyjobs.entity.security.Ativacao;
+import software.gabriel.easyjobs.entity.security.Usuario;
+import software.gabriel.easyjobs.exception.security.AtivacaoInexistenteException;
+import software.gabriel.easyjobs.exception.security.CodigoAtivacaoExpiradoException;
+import software.gabriel.easyjobs.exception.security.CodigoAtivacaoIncorretoException;
+import software.gabriel.easyjobs.exception.security.RenovacaoAntecipadaCodigoAtivacaoException;
+import software.gabriel.easyjobs.repository.security.AtivacaoRepository;
 import software.gabriel.easyjobs.service.mail.AtivacaoMail;
 import software.gabriel.easyjobs.service.mail.MailService;
 import software.gabriel.easyjobs.utils.AtivacaoUtils;
@@ -30,13 +30,13 @@ import software.gabriel.easyjobs.utils.AtivacaoUtils;
 public class AtivacaoService {
 
     @Autowired
-    AtivacaoRepository ativacaoRepository;
+    private AtivacaoRepository ativacaoRepository;
 
     @Autowired
-    UsuarioService usuarioService;
+    private UsuarioService usuarioService;
 
     @Autowired
-    MailService mailService;
+    private MailService mailService;
 
     public void cadastrar(Usuario usuario) {
         Ativacao ativacao = gerarCodigo(new Ativacao(usuario));

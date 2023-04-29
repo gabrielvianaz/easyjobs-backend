@@ -2,14 +2,15 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package software.gabriel.easyjobs.security;
+package software.gabriel.easyjobs.service.security;
 
+import software.gabriel.easyjobs.utils.SecurityUtils;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import org.springframework.stereotype.Service;
-import software.gabriel.easyjobs.entity.Usuario;
+import software.gabriel.easyjobs.entity.security.Usuario;
 
 /**
  *
