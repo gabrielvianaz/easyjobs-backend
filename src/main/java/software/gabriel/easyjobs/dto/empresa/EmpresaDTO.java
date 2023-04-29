@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package software.gabriel.easyjobs.dto;
+package software.gabriel.easyjobs.dto.empresa;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.NotBlank;
@@ -11,14 +11,15 @@ import jakarta.validation.constraints.Size;
 import java.time.LocalDate;
 import org.hibernate.validator.constraints.URL;
 import org.hibernate.validator.constraints.br.CNPJ;
-import software.gabriel.easyjobs.entity.Empresa;
+import software.gabriel.easyjobs.dto.base.AbstractDTO;
+import software.gabriel.easyjobs.entity.empresa.Empresa;
 
 /**
  *
  * @author gabriel
  */
 public class EmpresaDTO
-        extends BaseDTO<Empresa> {
+        extends AbstractDTO<Empresa> {
 
     @NotBlank(message = "O campo 'razaoSocial' deve ser preenchido!")
     private String razaoSocial;
