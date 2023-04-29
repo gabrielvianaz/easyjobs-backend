@@ -2,8 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package software.gabriel.easyjobs.entity;
+package software.gabriel.easyjobs.entity.security;
 
+import software.gabriel.easyjobs.entity.base.AbstractEntity;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -26,7 +27,7 @@ import java.util.Set;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import software.gabriel.easyjobs.model.UsuarioModel;
+import software.gabriel.easyjobs.model.security.UsuarioModel;
 
 /**
  *
@@ -34,7 +35,7 @@ import software.gabriel.easyjobs.model.UsuarioModel;
  */
 @Entity
 public class Usuario
-        extends BaseEntity
+        extends AbstractEntity
         implements UsuarioModel, UserDetails {
 
     @Id

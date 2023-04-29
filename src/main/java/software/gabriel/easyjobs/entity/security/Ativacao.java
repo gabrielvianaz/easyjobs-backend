@@ -2,15 +2,16 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package software.gabriel.easyjobs.entity;
+package software.gabriel.easyjobs.entity.security;
 
+import software.gabriel.easyjobs.entity.base.AbstractEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import java.time.LocalDateTime;
 import java.util.Objects;
-import software.gabriel.easyjobs.model.AtivacaoModel;
+import software.gabriel.easyjobs.model.security.AtivacaoModel;
 
 /**
  *
@@ -18,7 +19,7 @@ import software.gabriel.easyjobs.model.AtivacaoModel;
  */
 @Entity
 public class Ativacao
-        extends BaseEntity
+        extends AbstractEntity
         implements AtivacaoModel {
 
     @OneToOne

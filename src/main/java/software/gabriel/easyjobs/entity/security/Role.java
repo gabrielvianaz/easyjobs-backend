@@ -2,14 +2,15 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package software.gabriel.easyjobs.entity;
+package software.gabriel.easyjobs.entity.security;
 
+import software.gabriel.easyjobs.entity.base.AbstractEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import software.gabriel.easyjobs.model.RoleModel;
+import software.gabriel.easyjobs.model.security.RoleModel;
 
 /**
  *
@@ -17,7 +18,7 @@ import software.gabriel.easyjobs.model.RoleModel;
  */
 @Entity
 public class Role
-        extends BaseEntity
+        extends AbstractEntity
         implements RoleModel {
 
     @Id
