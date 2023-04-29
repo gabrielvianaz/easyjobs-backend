@@ -15,7 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.stereotype.Component;
-import software.gabriel.easyjobs.exception.BaseError;
+import software.gabriel.easyjobs.exception.base.ErrorSchema;
 
 /**
  *
@@ -30,11 +30,11 @@ public class CustomAccessDeniedHandler
         ObjectMapper mapper = new ObjectMapper();
         JavaTimeModule module = new JavaTimeModule();
         mapper.registerModule(module);
-        String mensagem = "Você não possui acesso a esse recurso!";
+        String mensagem = "Usuário não possui acesso a esse recurso!";
         HttpStatus status = HttpStatus.FORBIDDEN;
         response.setStatus(403);
         response.setContentType("application/json;charset=UTF-8");
-        response.getWriter().write(mapper.writeValueAsString(new BaseError(Instant.now(), status.value(), mensagem, request.getRequestURI())));
+        response.getWriter().write(mapper.writeValueAsString(new ErrorSchema(Instant.now(), status.value(), mensagem, request.getRequestURI())));
     }
 
 }
