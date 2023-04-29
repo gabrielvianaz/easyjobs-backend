@@ -9,7 +9,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import software.gabriel.easyjobs.dto.base.curriculo.CampoCurriculoDTO;
 import software.gabriel.easyjobs.entity.base.curriculo.AbstractCampoCurriculoManyToOne;
 import software.gabriel.easyjobs.entity.curriculo.Curriculo;
-import software.gabriel.easyjobs.exception.global.EntidadeOutroUsuárioException;
+import software.gabriel.easyjobs.exception.global.EntidadeOutroUsuarioException;
 
 /**
  *
@@ -43,7 +43,7 @@ public abstract class AbstractCampoCurriculoManyToOneService<T extends AbstractC
 
     private void validarCandidato(T campoCurriculo) {
         if (!campoCurriculo.getCurriculo().getCandidato().equals(getCurriculoCandidatoAutenticado().getCandidato())) {
-            throw new EntidadeOutroUsuárioException(entity.getClass());
+            throw new EntidadeOutroUsuarioException(entity.getClass());
         }
     }
 
