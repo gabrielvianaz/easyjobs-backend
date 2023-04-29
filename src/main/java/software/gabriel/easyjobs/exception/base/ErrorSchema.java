@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package software.gabriel.easyjobs.exception;
+package software.gabriel.easyjobs.exception.base;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import java.time.Instant;
@@ -11,7 +11,7 @@ import java.time.Instant;
  *
  * @author gabriel
  */
-public class BaseError {
+public class ErrorSchema {
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "YYYY-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
     private Instant timestamp;
@@ -22,7 +22,7 @@ public class BaseError {
 
     private String caminho;
 
-    public BaseError(Instant timestamp, Integer status, String mensagem, String caminho) {
+    public ErrorSchema(Instant timestamp, Integer status, String mensagem, String caminho) {
         this.timestamp = timestamp;
         this.status = status;
         this.mensagem = mensagem;
