@@ -2,16 +2,16 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package software.gabriel.easyjobs.exception.ativacao;
+package software.gabriel.easyjobs.exception.security;
 
 /**
  *
  * @author gabriel
  */
-public class CodigoAtivacaoIncorretoException extends RuntimeException {
+public class EmailJaCadastradoException extends RuntimeException {
     
-    public CodigoAtivacaoIncorretoException() {
-        super("O código de ativação informado está incorreto!");
+    public EmailJaCadastradoException() {
+        super("O e-mail informado já se encontra cadastrado!");
     }
     
 }
