@@ -2,16 +2,18 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
  */
-package software.gabriel.easyjobs.repository;
+package software.gabriel.easyjobs.repository.security;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import software.gabriel.easyjobs.entity.Empresa;
+import software.gabriel.easyjobs.entity.security.Usuario;
 
 /**
  *
  * @author gabriel
  */
-public interface EmpresaRepository
-        extends JpaRepository<Empresa, Long> {
+public interface UsuarioRepository
+        extends JpaRepository<Usuario, Long> {
+
+    Usuario findByEmail(String email);
 
 }
