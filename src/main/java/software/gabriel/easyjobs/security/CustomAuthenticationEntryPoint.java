@@ -15,7 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.stereotype.Component;
-import software.gabriel.easyjobs.exception.BaseError;
+import software.gabriel.easyjobs.exception.base.ErrorSchema;
 
 /**
  *
@@ -34,7 +34,7 @@ public class CustomAuthenticationEntryPoint
         HttpStatus status = HttpStatus.UNAUTHORIZED;
         response.setStatus(401);
         response.setContentType("application/json;charset=UTF-8");
-        response.getWriter().write(mapper.writeValueAsString(new BaseError(Instant.now(), status.value(), mensagem, request.getRequestURI())));
+        response.getWriter().write(mapper.writeValueAsString(new ErrorSchema(Instant.now(), status.value(), mensagem, request.getRequestURI())));
     }
 
 }
