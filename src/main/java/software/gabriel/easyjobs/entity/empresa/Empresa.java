@@ -2,8 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package software.gabriel.easyjobs.entity;
+package software.gabriel.easyjobs.entity.empresa;
 
+import software.gabriel.easyjobs.entity.base.AbstractEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
@@ -15,7 +16,8 @@ import java.time.LocalDate;
 import java.util.Objects;
 import org.hibernate.validator.constraints.URL;
 import org.hibernate.validator.constraints.br.CNPJ;
-import software.gabriel.easyjobs.model.EmpresaModel;
+import software.gabriel.easyjobs.entity.security.Usuario;
+import software.gabriel.easyjobs.model.empresa.EmpresaModel;
 
 /**
  *
@@ -23,7 +25,7 @@ import software.gabriel.easyjobs.model.EmpresaModel;
  */
 @Entity
 public class Empresa
-        extends BaseEntity
+        extends AbstractEntity
         implements EmpresaModel {
 
     @NotBlank(message = "O campo 'razaoSocial' deve ser preenchido!")
