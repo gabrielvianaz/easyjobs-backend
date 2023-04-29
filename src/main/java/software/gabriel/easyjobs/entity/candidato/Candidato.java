@@ -2,8 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package software.gabriel.easyjobs.entity;
+package software.gabriel.easyjobs.entity.candidato;
 
+import software.gabriel.easyjobs.entity.curriculo.Curriculo;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -16,8 +17,10 @@ import jakarta.validation.constraints.Size;
 import java.time.LocalDate;
 import java.util.Objects;
 import org.hibernate.validator.constraints.br.CPF;
-import software.gabriel.easyjobs.enums.GeneroCandidato;
-import software.gabriel.easyjobs.model.CandidatoModel;
+import software.gabriel.easyjobs.entity.base.AbstractEntity;
+import software.gabriel.easyjobs.entity.security.Usuario;
+import software.gabriel.easyjobs.enums.candidato.GeneroCandidato;
+import software.gabriel.easyjobs.model.candidato.CandidatoModel;
 
 /**
  *
@@ -25,7 +28,7 @@ import software.gabriel.easyjobs.model.CandidatoModel;
  */
 @Entity
 public class Candidato
-        extends BaseEntity
+        extends AbstractEntity
         implements CandidatoModel {
 
     @NotBlank(message = "O campo 'nome' deve ser preenchido!")
@@ -60,6 +63,9 @@ public class Candidato
     @NotNull(message = "O campo 'usuario' deve ser preenchido!")
     @JoinColumn(name = "usuario_id", nullable = false, unique = true)
     private Usuario usuario;
+
+    @OneToOne(mappedBy = "candidato")
+    private Curriculo curriculo;
 
     @Override
     public String getNome() {
@@ -122,6 +128,15 @@ public class Candidato
 
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
+    }
+
+    @Override
+    public Curriculo getCurriculo() {
+        return curriculo;
+    }
+
+    public void setCurriculo(Curriculo curriculo) {
+        this.curriculo = curriculo;
     }
 
     @Override

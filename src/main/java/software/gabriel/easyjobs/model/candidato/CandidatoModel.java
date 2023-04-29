@@ -2,18 +2,20 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
  */
-package software.gabriel.easyjobs.model;
+package software.gabriel.easyjobs.model.candidato;
 
 import java.time.LocalDate;
-import software.gabriel.easyjobs.entity.Usuario;
-import software.gabriel.easyjobs.enums.GeneroCandidato;
+import software.gabriel.easyjobs.entity.curriculo.Curriculo;
+import software.gabriel.easyjobs.entity.security.Usuario;
+import software.gabriel.easyjobs.enums.candidato.GeneroCandidato;
+import software.gabriel.easyjobs.model.base.EntityModel;
 
 /**
  *
  * @author gabriel
  */
 public interface CandidatoModel
-        extends BaseModel {
+        extends EntityModel {
 
     String getNome();
 
@@ -28,5 +30,7 @@ public interface CandidatoModel
     String getEstado();
 
     Usuario getUsuario();
+    
+    Curriculo getCurriculo();
 
 }
