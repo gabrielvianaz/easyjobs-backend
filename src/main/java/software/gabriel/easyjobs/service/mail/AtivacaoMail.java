@@ -4,7 +4,7 @@
  */
 package software.gabriel.easyjobs.service.mail;
 
-import software.gabriel.easyjobs.entity.Ativacao;
+import software.gabriel.easyjobs.entity.security.Ativacao;
 
 /**
  *
