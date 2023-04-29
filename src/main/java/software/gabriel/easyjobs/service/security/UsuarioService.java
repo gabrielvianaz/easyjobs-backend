@@ -2,20 +2,20 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package software.gabriel.easyjobs.service;
+package software.gabriel.easyjobs.service.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import software.gabriel.easyjobs.dto.UsuarioDTO;
-import software.gabriel.easyjobs.entity.Role;
-import software.gabriel.easyjobs.entity.Usuario;
-import software.gabriel.easyjobs.exception.usuario.EmailJaCadastradoException;
-import software.gabriel.easyjobs.exception.usuario.EmailNaoCadastradoException;
-import software.gabriel.easyjobs.exception.usuario.UsuarioJaVinculadoException;
-import software.gabriel.easyjobs.mapper.UsuarioMapper;
-import software.gabriel.easyjobs.repository.UsuarioRepository;
-import software.gabriel.easyjobs.security.SecurityUtils;
+import software.gabriel.easyjobs.dto.security.UsuarioDTO;
+import software.gabriel.easyjobs.entity.security.Role;
+import software.gabriel.easyjobs.entity.security.Usuario;
+import software.gabriel.easyjobs.exception.security.EmailJaCadastradoException;
+import software.gabriel.easyjobs.exception.security.EmailNaoCadastradoException;
+import software.gabriel.easyjobs.exception.security.UsuarioJaVinculadoException;
+import software.gabriel.easyjobs.mapper.security.UsuarioMapper;
+import software.gabriel.easyjobs.repository.security.UsuarioRepository;
+import software.gabriel.easyjobs.utils.SecurityUtils;
 
 /**
  *
@@ -25,19 +25,19 @@ import software.gabriel.easyjobs.security.SecurityUtils;
 public class UsuarioService {
 
     @Autowired
-    UsuarioRepository usuarioRepository;
+    private UsuarioRepository usuarioRepository;
 
     @Autowired
-    UsuarioMapper usuarioMapper;
+    private UsuarioMapper usuarioMapper;
 
     @Autowired
-    AtivacaoService ativacaoService;
+    private AtivacaoService ativacaoService;
 
     @Autowired
-    RoleService roleService;
+    private RoleService roleService;
 
     @Autowired
-    BCryptPasswordEncoder bCryptPasswordEncoder;
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     public void cadastrar(UsuarioDTO usuarioDTO) {
         if (usuarioRepository.findByEmail(usuarioDTO.getEmail()) == null) {
